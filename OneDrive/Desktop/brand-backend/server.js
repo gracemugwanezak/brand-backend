@@ -1,4 +1,5 @@
 // server.js
+import cors from "cors";
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
@@ -11,6 +12,13 @@ dotenv.config({ path: "./src/env/.env" });
 
 const app = express();
 
+app.use(
+  cors({
+    origin: "*",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(morgan("tiny"));
 app.use("/api/users", userRouter);
