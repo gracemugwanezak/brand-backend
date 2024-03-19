@@ -29,7 +29,9 @@ const port = process.env.PORT || 4000;
 // const dbURI = process.env.DB_URI || "mongodb://localhost:27017/portfolio";
 
 mongoose
-  .connect("mongodb://localhost:27017/portfolio")
+  .connect(
+    "mongodb+srv://mugwaneza:jltB26e3F0ueZGOZ@cluster0.v7gsbr4.mongodb.net/portifolio?retryWrites=true&w=majority&appName=Cluster0"
+  )
   .then(() => {
     console.log("DB connected!");
     app.listen(port, () => {
