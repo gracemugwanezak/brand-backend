@@ -20,7 +20,7 @@ tags:
     - name: Admin
       description: Endpoints related to Admin        
 paths:
-  /all-blogs:
+  /api/blogs:
     get:
       tags:
           - Blogs
@@ -34,14 +34,14 @@ paths:
             properties:
               id:
                 type: integer
-              title:
+              blogName:
                 type: string
-              description:
+              blogDescription:
                 type: string
-              photo:
+              blogImage:
                 type: string
 
-  /single-blog/{blogId}:
+  /api/blogs/{blogId}:
     get:
       tags:
           - Blogs
@@ -58,7 +58,7 @@ paths:
         '200':
           description: OK
 
-  /single-blog/{blogId}/like:
+  /api/blogs/{blogId}/like:
     post:
       tags:
           - Blogs
@@ -75,7 +75,7 @@ paths:
         '200':
           description: OK        
 
-  /single-blog/{blogId}/share:
+  /api/blogs/{blogId}/share:
     post:
       tags:
           - Blogs
@@ -111,7 +111,7 @@ paths:
         '200':
           description: OK  
            
-  /single-blog/{blogId}/all-comments:
+  /api/blogs/{blogId}/all-comments:
     get:
       tags:
           - Blogs
@@ -127,7 +127,7 @@ paths:
       responses:
         '200':
           description: OK    
-  /add-blog:
+  /api/blogs:
     post:
       tags:
           - Blogs
@@ -142,29 +142,29 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: "#/components/schemas/Blog"
+            $ref: "#/components/schemas/blogs"
       responses:
         '200':
           description: OK
 
-  /delete-blog/{blogId}:
+    /api/blogs/{id}:
     delete:
       tags:
           - Blogs
       security:
-          - Bearer: []      
+          - Bearer: []       
       summary: Deletes a blog by ID.
-      description: Deletes a Specific Blog.
+      description: Deletes a Specific blog
       parameters:
-        - name: blogId
+        - name: id
           in: path
           required: true
           schema:
-            type: integer
+            type : integer
             format: int64
-      responses:
+      responses: 
         '200':
-          description: OK
+          description: OK 
 
   
               
@@ -320,18 +320,18 @@ paths:
 
 components:
   schemas:
-    Blog:
+   blogs:
       type: object
       required:
-        - title
-        - description
-        - photo
+        - blogName
+        - blogDescription
+        - blogImage
       properties:
-        title:
+        blogName:
           type: string
-        description:
+        blogDescription:
           type: string
-        photo:
+        blogImage:
           type: string
 
 components:
