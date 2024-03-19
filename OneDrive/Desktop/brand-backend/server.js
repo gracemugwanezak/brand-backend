@@ -4,6 +4,11 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import morgan from "morgan";
+import YAML from "yamljs";
+import swaggerUI from "swagger-ui-express";
+
+const swaggerJsDocs = YAML.load("./api.yaml");
+
 import userRouter from "./src/routes/usersRoute.js";
 import blogsRouter from "./src/routes/blogsRoutes.js";
 import { handleServerError } from "./src/helpers/errorHelper.js";
@@ -12,6 +17,7 @@ dotenv.config({ path: "./src/env/.env" });
 
 const app = express();
 
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerJsDocs));
 app.use(
   cors({
     origin: "*",

@@ -5,7 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon server.js",
+    "dev": "nodemon server , .yaml",
+    "start": "nodemon server , .yaml",
     "test": "jest --coverage --detectOpenHandles"
   },
   "keywords": [],
@@ -29,6 +30,8 @@
     "express": "^4.18.3",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.2.1",
-    "validator": "^13.11.0"
+    "swagger-ui-express": "^5.0.0",
+    "validator": "^13.11.0",
+    "yamljs": "^0.3.0"
   }
 }

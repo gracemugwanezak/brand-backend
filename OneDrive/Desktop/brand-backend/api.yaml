@@ -1,0 +1,370 @@
+swagger: "2.0"
+info:
+  title: Portfolio Back-End API
+  description:  backend API documentation for my portfolio  ~ AUTHOR ~ MUGWANEZA Grace
+  version: 1.0
+  contact:
+    email: gracemugwaneza018@gmail.com
+securityDefinitions:
+  Bearer: 
+    type: apiKey
+    name: Authorization
+    in: header
+    description: "Enter your bearer token in format Bearer"
+ 
+tags:
+    - name: Blogs
+      description: Endpoints related to managing blogs
+    - name: Messages
+      description: Endpoints related to messages 
+    - name: Admin
+      description: Endpoints related to Admin        
+paths:
+  /all-blogs:
+    get:
+      tags:
+          - Blogs
+      summary: Returns a list of blogs.
+      description: Blogs already written and stored in the database.
+      responses:
+        200:
+          description: Successful Response
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              title:
+                type: string
+              description:
+                type: string
+              photo:
+                type: string
+
+  /single-blog/{blogId}:
+    get:
+      tags:
+          - Blogs
+      summary: Returns a blog by ID.
+      description: Returns a Specific Blog.
+      parameters:
+        - name: blogId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+
+  /single-blog/{blogId}/like:
+    post:
+      tags:
+          - Blogs
+      summary: Returns a blog by ID.
+      description: Returns a Specific Blog.
+      parameters:
+        - name: blogId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK        
+
+  /single-blog/{blogId}/share:
+    post:
+      tags:
+          - Blogs
+      summary: shares a blog by using it's ID.
+      description: shares a Specific Blog.
+      parameters:
+        - name: blogId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+
+  /add-comment:
+    post:
+      tags:
+          - Blogs
+      summary: adds a comment on  a blog .
+      description: adds a comment on a Specific Blog.
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          schema:
+            $ref: "#/components/schemas/comment"
+      responses:
+        '200':
+          description: OK  
+           
+  /single-blog/{blogId}/all-comments:
+    get:
+      tags:
+          - Blogs
+      summary: retuns  all comments on  a blog .
+      description: returns all comments on a Specific Blog.
+      parameters:
+        - name: blogId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK    
+  /add-blog:
+    post:
+      tags:
+          - Blogs
+      security:
+          - Bearer: []  
+      summary: Adds a new blog.
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          schema:
+            $ref: "#/components/schemas/Blog"
+      responses:
+        '200':
+          description: OK
+
+  /delete-blog/{blogId}:
+    delete:
+      tags:
+          - Blogs
+      security:
+          - Bearer: []      
+      summary: Deletes a blog by ID.
+      description: Deletes a Specific Blog.
+      parameters:
+        - name: blogId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+
+  
+              
+#Returns all messages
+  /all-messages:
+    get:
+      tags:
+          - Messages
+      security:
+          - Bearer: []       
+      summary: Returns a list of all messages received.
+      description: All messages that were sent through the contact form
+      responses:
+        200:    # status code
+          description: Successul Response
+          schema: 
+            type: object
+            properties:
+              id:
+                type: integer
+              title:
+                type: string
+                description:
+                type: string
+                photo:
+                type: string
+
+
+
+#Get Request with path id
+  /single-message/{id}:
+    get:
+      tags:
+          - Messages
+      security:
+          - Bearer: []   
+      summary: Returns a messages by ID.
+      description: Returns a Specific message
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type : integer
+            format: int64
+      responses: 
+        '200':
+          description: OK
+         
+
+
+#Post json/body & Body required
+  # /add-blog:
+  #   post:
+  #     summary: Adds a new blog
+  #     produces:
+  #       - application/json
+  #     consumes:
+  #       - application/json
+  #     parameters:
+  #       - in: body
+  #         name: body
+  #         schema:
+  #           type: object
+  #           required:
+  #             - name
+  #             - id
+  #           properties:
+  #             id:
+  #               type: integer
+  #             name:
+  #               type: string
+  #     responses:
+  #       '200':
+  #         description: OK
+
+
+#Defining Body Reference
+  /add-message:
+    post:
+      tags:
+           - Messages
+      summary: Add a new message to send it fill in your information (name, email and your message) 
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          schema:
+           $ref: "#/components/schemas/Message"
+      responses:
+        '200':
+          description: OK
+     
+#Get Request with path id
+  /delete-message/{id}:
+    delete:
+      tags:
+          - Messages
+      security:
+          - Bearer: []       
+      summary: Deletes a message by ID.
+      description: Deletes a Specific message
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type : integer
+            format: int64
+      responses: 
+        '200':
+          description: OK   
+#Defining Body Reference
+  /auth/register:
+    post:
+      tags:
+           - Admin
+      summary: Register here with an email and password
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          schema:
+           $ref: "#/components/schemas/Users"
+      responses:
+        '200':
+          description: OK
+
+#Defining Body Reference
+  /auth/login:
+    post:
+      tags:
+           - Admin
+      summary: Log in by entering your email and password if you already signed up 
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          schema:
+           $ref: "#/components/schemas/Users"
+      responses:
+        '200':
+          description: OK          
+
+components:
+  schemas:
+    Blog:
+      type: object
+      required:
+        - title
+        - description
+        - photo
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        photo:
+          type: string
+
+components:
+  schemas:
+    Message:
+      type: object
+      required:
+        - name
+        - email
+        - message
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email: 
+          type: string
+        message: 
+          type: string           
+
+components:
+  schemas:
+    Users:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        id:
+         type: integer
+        email: 
+          type: string
+        password: 
+          type: string
+
+
