@@ -1,3 +1,5 @@
+//userController.js
+
 import asyncMiddleware from "../helpers/asyncMiddleware.js";
 import { User } from "../models/userModel.js";
 

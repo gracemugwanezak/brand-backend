@@ -1,3 +1,5 @@
+// authController.js
+
 import asyncMiddleware from "../helpers/asyncMiddleware.js";
 import dotenv from "dotenv";
 dotenv.config({ path: `${process.cwd()}/src/env/.env` });
