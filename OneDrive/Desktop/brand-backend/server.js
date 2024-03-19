@@ -21,6 +21,11 @@ app.use(
 );
 app.use(express.json());
 app.use(morgan("tiny"));
+
+app.get("/", (req, res) => {
+  res.status(200).send({ message: "Welcome to my  portifolio api endpoints " });
+});
+
 app.use("/api/users", userRouter);
 app.use("/api/blogs", blogsRouter);
 
