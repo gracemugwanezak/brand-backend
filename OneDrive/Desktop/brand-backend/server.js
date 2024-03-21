@@ -12,6 +12,7 @@ const swaggerJsDocs = YAML.load("./api.yaml");
 import userRouter from "./src/routes/usersRoute.js";
 import blogsRouter from "./src/routes/blogsRoutes.js";
 import { handleServerError } from "./src/helpers/errorHelper.js";
+import messageRouter from "./src/routes/messagesRoutes.js";
 
 dotenv.config({ path: "./src/env/.env" });
 
@@ -21,8 +22,7 @@ app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerJsDocs));
 app.use(
   cors({
     origin: "*",
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    credentials: true,
+    methods: "*",
   })
 );
 app.use(express.json());
@@ -34,6 +34,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/users", userRouter);
 app.use("/api/blogs", blogsRouter);
+app.use("/messages", messageRouter);
 
 const port = process.env.PORT || 4000;
 

@@ -10,7 +10,7 @@ import {
 } from "../controllers/authController.js";
 const userRouter = Router();
 
-userRouter.route("/").get(protectionMiddleware, checkAdmin, getUsers);
+userRouter.route("/").get(getUsers);
 userRouter.post("/signup", signup);
 userRouter.post("/login", login);
 

@@ -27,19 +27,18 @@ const comparePasswords = async (registeredPassword, loginPassword) => {
 
 // method for creating new user
 export const signup = asyncMiddleware(async (req, res, next) => {
-  let { email, password, username, isAdmin } = req.body;
-  const user = await User.findOne({ email });
+  // let { email, password, username, isAdmin } = req.body;
+  console.log(req.body);
+  const user = await User.findOne({ email: req.body.email });
 
   if (user) return next("User already exist, use another email");
-  if (!password) return next("provide password");
-  password = encryptPassword(password);
-  const newUser = await User.create({ email, password, username, isAdmin });
+  if (!req.body.password) return next("provide password");
+  req.body.password = encryptPassword(req.body.password);
+  // const newUser = await User.create({ email, password, username, isAdmin });
+  const newUser = await User.create(req.body);
   res.status(201).json({
     status: "success",
-    data: {
-      username: newUser.username,
-      email: newUser.email,
-    },
+    message: "account created successfully!",
   });
 });
 

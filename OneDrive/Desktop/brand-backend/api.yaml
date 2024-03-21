@@ -41,6 +41,45 @@ paths:
               blogImage:
                 type: string
 
+  /api/blogs:
+    post:
+      tags:
+          - Blogs
+      security:
+          - Bearer: []  
+      summary: Adds a new blog.
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          schema:
+            $ref: "#/components/schemas/blogs"
+      responses:
+        '200':
+          description: OK            
+
+  /api/blogs/{id}:
+    delete:
+      tags:
+          - Blogs
+      security:
+          - Bearer: []       
+      summary: Deletes a blog by ID.
+      description: Deletes a Specific blog
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type : integer
+            format: int64
+      responses: 
+        '200':
+          description: OK 
+
   /api/blogs/{blogId}:
     get:
       tags:
@@ -56,14 +95,32 @@ paths:
             format: int64
       responses:
         '200':
-          description: OK
+          description: OK        
+
+  /api/blogs/{blogId}:
+    patch:
+      tags:
+          - Blogs
+      summary: updates a blog by using it's ID.
+      description: updates a Specific Blog.
+      parameters:
+        - name: blogId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK 
+
 
   /api/blogs/{blogId}/like:
     post:
       tags:
           - Blogs
-      summary: Returns a blog by ID.
-      description: Returns a Specific Blog.
+      summary: likes a blog by ID.
+      description: likes a Specific Blog.
       parameters:
         - name: blogId
           in: path
@@ -147,26 +204,6 @@ paths:
         '200':
           description: OK
 
-    /api/blogs/{id}:
-    delete:
-      tags:
-          - Blogs
-      security:
-          - Bearer: []       
-      summary: Deletes a blog by ID.
-      description: Deletes a Specific blog
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type : integer
-            format: int64
-      responses: 
-        '200':
-          description: OK 
-
-  
               
 #Returns all messages
   /all-messages:
@@ -213,33 +250,6 @@ paths:
       responses: 
         '200':
           description: OK
-         
-
-
-#Post json/body & Body required
-  # /add-blog:
-  #   post:
-  #     summary: Adds a new blog
-  #     produces:
-  #       - application/json
-  #     consumes:
-  #       - application/json
-  #     parameters:
-  #       - in: body
-  #         name: body
-  #         schema:
-  #           type: object
-  #           required:
-  #             - name
-  #             - id
-  #           properties:
-  #             id:
-  #               type: integer
-  #             name:
-  #               type: string
-  #     responses:
-  #       '200':
-  #         description: OK
 
 
 #Defining Body Reference
@@ -366,5 +376,3 @@ components:
           type: string
         password: 
           type: string
-
-
