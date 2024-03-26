@@ -182,7 +182,7 @@ paths:
       responses:
         "200":
           description: OK
-  /all-messages:
+  /messages/all-messages:
     get:
       tags:
         - Messages
@@ -204,7 +204,7 @@ paths:
                 type: string
               photo:
                 type: string
-  /single-message/{id}:
+  /messages/single-message/{id}:
     get:
       tags:
         - Messages
@@ -222,7 +222,7 @@ paths:
       responses:
         "200":
           description: OK
-  /add-message:
+  /messages/add-message:
     post:
       tags:
         - Messages
@@ -239,7 +239,7 @@ paths:
       responses:
         "200":
           description: OK
-  /delete-message/{id}:
+  /messages/delete-message/{id}:
     delete:
       tags:
         - Messages
