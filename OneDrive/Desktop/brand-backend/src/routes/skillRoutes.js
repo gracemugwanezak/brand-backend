@@ -16,6 +16,6 @@ skillRoute.post("/", createSkill);
 skillRoute.get("/:id", getSkill);
 skillRoute.put("/:id", updateSkill);
 skillRoute.delete("/:id", deleteSkill);
-skillRoute.get("/:category", getSkillsByCategory);
+skillRoute.get("/filter/:category", getSkillsByCategory);
 
 export default skillRoute;
