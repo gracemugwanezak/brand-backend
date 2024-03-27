@@ -6,7 +6,7 @@ export const skillModel = model(
     name: String,
     category: {
       type: String,
-      enum: ["Soft ", "Technical"],
+      enum: ["Soft", "Technical"],
     },
   })
 );
