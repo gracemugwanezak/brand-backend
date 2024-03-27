@@ -13,32 +13,30 @@ import userRouter from "./src/routes/usersRoute.js";
 import blogsRouter from "./src/routes/blogsRoutes.js";
 import { handleServerError } from "./src/helpers/errorHelper.js";
 import messageRouter from "./src/routes/messagesRoutes.js";
+import educationalBackgroundRoutes from "./src/routes/educationalBackgroundRoutes.js";
+import skillRoutes from "./src/routes/skillRoutes.js";
 
 dotenv.config({ path: "./src/env/.env" });
 
 const app = express();
 
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerJsDocs));
-app.use(
-  cors({
-    origin: "*",
-    methods: "*",
-  })
-);
+app.use(cors());
 app.use(express.json());
 app.use(morgan("tiny"));
 
 app.get("/", (req, res) => {
-  res.status(200).send({ message: "Welcome to my  portifolio api endpoints " });
+  res.status(200).send({ message: "Welcome to my portfolio api endpoints " });
 });
 
+// Routes
 app.use("/api/users", userRouter);
 app.use("/api/blogs", blogsRouter);
 app.use("/messages", messageRouter);
+app.use("/education", educationalBackgroundRoutes);
+app.use("/skills", skillRoutes);
 
-const port = process.env.PORT || 4000;
-
-// const dbURI = process.env.DB_URI || "mongodb://localhost:27017/portfolio";
+const PORT = process.env.PORT || 4000;
 
 mongoose
   .connect(
@@ -46,8 +44,8 @@ mongoose
   )
   .then(() => {
     console.log("DB connected!");
-    app.listen(port, () => {
-      console.log("Server is running on port " + port);
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
     });
   })
   .catch((err) => {
