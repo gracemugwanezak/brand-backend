@@ -51,5 +51,5 @@ export const getSkillsByCategory = asyncMiddleware(async (req, res, next) => {
   const category = req.params.category;
   const filteredSkills = skillModel.find({ category });
   if (!filteredSkills) return next(new Error("not found!"));
-  res.status(200).json(filteredSkills);
+  res.status(200).json({ filteredSkills });
 });
