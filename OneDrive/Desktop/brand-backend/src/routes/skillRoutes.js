@@ -10,10 +10,11 @@ import {
 
 const skillRoute = express.Router();
 
-skillRoute.get("/skills", getSkills);
-skillRoute.post("/skills", createSkill);
-skillRoute.get("/skills/:id", getSkill);
-skillRoute.put("/skills/:id", updateSkill);
-skillRoute.delete("/skills/:id", deleteSkill);
+skillRoute.get("/", getSkills);
+skillRoute.post("/", createSkill);
+skillRoute.get("/:id", getSkill);
+skillRoute.put("/:id", updateSkill);
+skillRoute.delete("/:id", deleteSkill);
+skillRoute.get("/:category", getSkillsByCategory);
 
 export default skillRoute;
