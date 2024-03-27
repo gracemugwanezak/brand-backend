@@ -6,6 +6,7 @@ import {
   getSkill,
   updateSkill,
   deleteSkill,
+  getSkillsByCategory,
 } from "../controllers/skillController.js";
 
 const skillRoute = express.Router();
