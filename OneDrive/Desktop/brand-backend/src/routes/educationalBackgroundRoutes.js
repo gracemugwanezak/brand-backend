@@ -11,16 +11,10 @@ import {
 const educationRoute = express.Router();
 
 // Define routes
-educationRoute.get("/educational-backgrounds", getAllEducationalBackgrounds);
-educationRoute.post("/educational-backgrounds", createEducationalBackground);
-educationRoute.get(
-  "/educational-backgrounds/:id",
-  getEducationalBackgroundById
-);
-educationRoute.put("/educational-backgrounds/:id", updateEducationalBackground);
-educationRoute.delete(
-  "/educational-backgrounds/:id",
-  deleteEducationalBackground
-);
+educationRoute.get("/", getAllEducationalBackgrounds);
+educationRoute.post("/", createEducationalBackground);
+educationRoute.get("/:id", getEducationalBackgroundById);
+educationRoute.put("/:id", updateEducationalBackground);
+educationRoute.delete("/:id", deleteEducationalBackground);
 
 export default educationRoute;
