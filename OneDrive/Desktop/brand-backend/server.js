@@ -15,6 +15,7 @@ import { handleServerError } from "./src/helpers/errorHelper.js";
 import messageRouter from "./src/routes/messagesRoutes.js";
 import educationalBackgroundRoutes from "./src/routes/educationalBackgroundRoutes.js";
 import skillRoutes from "./src/routes/skillRoutes.js";
+import portfolioRouter from "./src/routes/portfolioRoutes.js";
 
 dotenv.config({ path: "./src/env/.env" });
 
@@ -23,6 +24,9 @@ const app = express();
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerJsDocs));
 app.use(cors());
 app.use(express.json());
+
+app.use(express.urlencoded({ extended: false }));
+
 app.use(morgan("tiny"));
 
 app.get("/", (req, res) => {
@@ -35,6 +39,7 @@ app.use("/api/blogs", blogsRouter);
 app.use("/messages", messageRouter);
 app.use("/education", educationalBackgroundRoutes);
 app.use("/skills", skillRoutes);
+app.use("/portfolio", portfolioRouter);
 
 const PORT = process.env.PORT || 4000;
 
@@ -55,4 +60,7 @@ mongoose
 // Error handling middleware
 app.use((error, req, res, next) => {
   handleServerError(res, error);
+});
+app.use("*", (req, res, next) => {
+  res.status(404).json({ message: "page not found" });
 });

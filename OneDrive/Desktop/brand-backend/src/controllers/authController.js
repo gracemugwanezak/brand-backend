@@ -55,6 +55,7 @@ export const login = asyncMiddleware(async (req, res, next) => {
   res.status(200).json({
     message: "logged in",
     token,
+    user,
   });
 });
 export const protectionMiddleware = asyncMiddleware(async (req, res, next) => {

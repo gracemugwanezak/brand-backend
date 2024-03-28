@@ -36,12 +36,13 @@ export const deleteMessage = async (req, res) => {
   try {
     const { id } = req.params;
     const message = await Message.findByIdAndDelete(id);
+    console.log(id, message);
     if (!message) {
       return res
         .status(404)
         .json({ message: `Cannot find message with ID ${id}` });
     }
-    res.status(200).json(message);
+    res.status(200).json();
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

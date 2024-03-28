@@ -1,5 +1,3 @@
-//usersRoute.js
-
 import { Router } from "express";
 import { getUsers } from "../controllers/userController.js";
 import { login, signup } from "../controllers/authController.js";
@@ -8,12 +6,14 @@ import {
   protectionMiddleware,
   checkAdmin,
 } from "../controllers/authController.js";
+
 const userRouter = Router();
 
 userRouter.route("/").get(getUsers);
 userRouter.post("/signup", signup);
 userRouter.post("/login", login);
 
-// userRouter.route("/login").post(login);
+// Admin login route
+userRouter.post("/admin/login", login); // Example route for admin login
 
 export default userRouter;
