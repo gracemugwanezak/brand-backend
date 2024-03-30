@@ -1,10 +1,18 @@
-// import express from "express";
-// import morgan from "morgan";
-// import userRouter from "./src/routes/usersRoute.js";
-// const app = express();
+import app from "./server.js";
+import mongoose from "mongoose";
 
-// app.listen(4000, () => {
-//   console.log("Server is running on port...4000");
-// });
+const PORT = process.env.PORT || 4000;
 
-// export default app;
+mongoose
+  .connect(
+    "mongodb+srv://mugwaneza:jltB26e3F0ueZGOZ@cluster0.v7gsbr4.mongodb.net/portifolio?retryWrites=true&w=majority&appName=Cluster0"
+  )
+  .then(() => {
+    console.log("DB connected!");
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("DB connection error:", err);
+  });
