@@ -41,21 +41,21 @@ app.use("/education", educationalBackgroundRoutes);
 app.use("/skills", skillRoutes);
 app.use("/portfolio", portfolioRouter);
 
-const PORT = process.env.PORT || 4000;
+// const PORT = process.env.PORT || 4000;
 
-mongoose
-  .connect(
-    "mongodb+srv://mugwaneza:jltB26e3F0ueZGOZ@cluster0.v7gsbr4.mongodb.net/portifolio?retryWrites=true&w=majority&appName=Cluster0"
-  )
-  .then(() => {
-    console.log("DB connected!");
-    app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
-    });
-  })
-  .catch((err) => {
-    console.error("DB connection error:", err);
-  });
+// mongoose
+//   .connect(
+//     "mongodb+srv://mugwaneza:jltB26e3F0ueZGOZ@cluster0.v7gsbr4.mongodb.net/portifolio?retryWrites=true&w=majority&appName=Cluster0"
+//   )
+//   .then(() => {
+//     console.log("DB connected!");
+//     app.listen(PORT, () => {
+//       console.log(`Server is running on port ${PORT}`);
+//     });
+//   })
+//   .catch((err) => {
+//     console.error("DB connection error:", err);
+//   });
 
 // Error handling middleware
 app.use((error, req, res, next) => {
@@ -64,3 +64,5 @@ app.use((error, req, res, next) => {
 app.use("*", (req, res, next) => {
   res.status(404).json({ message: "page not found" });
 });
+
+export default app;

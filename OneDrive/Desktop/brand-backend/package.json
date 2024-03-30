@@ -5,26 +5,33 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon server , .yaml",
-    "start": "nodemon server , .yaml",
+    "dev": "nodemon index , .yaml",
+    "start": "nodemon index , .yaml",
     "build": "npm i",
-    "test": "jest --coverage --detectOpenHandles"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.24.0",
-    "@babel/preset-env": "^7.24.0",
+    "@babel/core": "^7.24.3",
+    "@babel/plugin-transform-modules-commonjs": "^7.24.1",
+    "@babel/preset-env": "^7.24.3",
+    "@jest/globals": "^29.7.0",
+    "@types/jest": "^29.5.12",
     "babel-cli": "^6.26.0",
+    "babel-jest": "^29.7.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-0": "^6.24.1",
+    "esm": "^3.2.25",
     "jest": "^29.7.0",
     "morgan": "^1.10.0",
     "nodemon": "^3.1.0",
-    "supertest": "^6.3.4"
+    "supertest": "^6.3.4",
+    "ts-jest": "^29.1.2"
   },
   "dependencies": {
+    "axios": "^1.6.8",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
     "cloudinary": "^2.0.3",
