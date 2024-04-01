@@ -144,3 +144,27 @@ describe(" shouldn't find the message with the id to delete", () => {
     expect(res.status).toBe(404);
   });
 });
+
+describe(" user api testing", () => {
+  it("should  create and register a user  and return success ", async () => {
+    const aUser = {
+      username: "ineza",
+      email: "ineza@gmail.com",
+      password: "ineza",
+    };
+    const res = await request(app).post(`/api/users/signup`).send(aUser);
+
+    expect(res.status).toEqual(201);
+  });
+
+  it("should  log in a registered  user  and return success ", async () => {
+    const registeredUser = { email: "rugiran@gmail.com", password: "rugiran" };
+    const res = await request(app)
+      .post(`/api/users/login`)
+      .send(registeredUser);
+    const token =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Zjk2Y2QxNjQxODc0ZjJlZGY0NmFmMyIsImlhdCI6MTcxMDg0NTE4NSwiZXhwIjoxNzEzNDM3MTg1fQ.x5mxuFrwi3nANX_HkieZvNVDbHLmHuP9k3VbAaOoCK";
+
+    expect(res.status).toEqual(200);
+  });
+});
