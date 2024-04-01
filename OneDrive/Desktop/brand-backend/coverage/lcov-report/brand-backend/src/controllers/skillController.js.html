@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">31.57% </span>
+                <span class="strong">50.87% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>18/57</span>
+                <span class='fraction'>29/57</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">40% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>2/5</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">31.57% </span>
+                <span class="strong">50.87% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>18/57</span>
+                <span class='fraction'>29/57</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -125,15 +125,8 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -141,8 +134,15 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -182,11 +182,11 @@ import { skillModel } from "../models/Skill.js";
 import asyncMiddleware from "../helpers/asyncMiddleware.js";
 &nbsp;
 export const createSkill = asyncMiddleware(async (req, res, next) =&gt; {
-<span class="cstat-no" title="statement not covered" >  const { name, category } = req.body;</span>
-<span class="cstat-no" title="statement not covered" >  console.log(req.body);</span>
-<span class="cstat-no" title="statement not covered" >  if (!name || !category)</span>
-<span class="cstat-no" title="statement not covered" >    return next(new Error("please provide required fields"));</span>
-<span class="cstat-no" title="statement not covered" >  const skills = await skillModel.create(req.body);</span>
+  const { name, category } = req.body;
+  console.log(req.body);
+  if (!name || !category)
+<span class="branch-0 cbranch-no" title="branch not covered" >    return next(new Error("please provide required fields"));</span>
+  const skills = await skillModel.create(req.body)<span class="branch-0 cbranch-no" title="branch not covered" >;</span>
 <span class="cstat-no" title="statement not covered" >  res.status(201).json({</span>
 <span class="cstat-no" title="statement not covered" >    status: "success",</span>
 <span class="cstat-no" title="statement not covered" >    skills,</span>
@@ -194,12 +194,12 @@ export const createSkill = asyncMiddleware(async (req, res, next) =&gt; {
 });
 &nbsp;
 export const getSkills = asyncMiddleware(async (req, res, next) =&gt; {
-<span class="cstat-no" title="statement not covered" >  const skills = await skillModel.find({}, { __v: false });</span>
-<span class="cstat-no" title="statement not covered" >  if (!skills) return next(new Error("not found"));</span>
-<span class="cstat-no" title="statement not covered" >  res.status(200).json({</span>
-<span class="cstat-no" title="statement not covered" >    status: "success",</span>
-<span class="cstat-no" title="statement not covered" >    skills,</span>
-<span class="cstat-no" title="statement not covered" >  });</span>
+  const skills = await skillModel.find({}, { __v: false });
+  if (!skills) <span class="branch-0 cbranch-no" title="branch not covered" >return next(new Error("not found"));</span>
+  res.status(200).json({
+    status: "success",
+    skills,
+  });
 });
 export const deleteSkill = asyncMiddleware(async (req, res, next) =&gt; {
 <span class="cstat-no" title="statement not covered" >  const id = req.params.id;</span>
@@ -241,7 +241,7 @@ export const getSkillsByCategory = asyncMiddleware(async (req, res, next) =&gt; 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-04-01T13:47:17.472Z
+                at 2024-04-01T16:16:35.702Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

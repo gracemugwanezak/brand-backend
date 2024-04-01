@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80.51% </span>
+                <span class="strong">67.53% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>62/77</span>
+                <span class='fraction'>52/77</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>5/10</span>
+                <span class='fraction'>4/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/4</span>
+                <span class='fraction'>2/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80.51% </span>
+                <span class="strong">67.53% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>62/77</span>
+                <span class='fraction'>52/77</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -161,6 +161,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -172,16 +174,14 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -237,9 +237,9 @@ const signToken = (id) =&gt; {
 const verifyToken = <span class="fstat-no" title="function not covered" >(token, secret = process.env.secret) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >  return jwt.verify(token, secret);</span>
 <span class="cstat-no" title="statement not covered" >};</span>
-const encryptPassword = (password) =&gt; {
-  return bcrypt.hashSync(password, 10);
-};
+const encryptPassword = (<span class="fstat-no" title="function not covered" >password) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  return bcrypt.hashSync(password, 10);</span>
+<span class="cstat-no" title="statement not covered" >};</span>
 const comparePasswords = async (registeredPassword, loginPassword) =&gt; {
   return await bcrypt.compare(registeredPassword, loginPassword);
 };
@@ -250,15 +250,15 @@ export const signup = asyncMiddleware(async (req, res, next) =&gt; {
   console.log(req.body);
   const user = await User.findOne({ email: req.body.email });
 &nbsp;
-  if (user) <span class="branch-0 cbranch-no" title="branch not covered" >return next("User already exist, use another email");</span>
-  if (!req.body.password) <span class="branch-0 cbranch-no" title="branch not covered" >return next("provide password");</span>
-  req.body.password = encryptPassword(req.body.password);
-  // const newUser = await User.create({ email, password, username, isAdmin });
-  const newUser = await User.create(req.body);
-  res.status(201).json({
-    status: "success",
-    message: "account created successfully!",
-  });
+  if (user) return next("User already exist, use another email")<span class="branch-0 cbranch-no" title="branch not covered" >;</span>
+<span class="cstat-no" title="statement not covered" >  if (!req.body.password) return next("provide password");</span>
+<span class="cstat-no" title="statement not covered" >  req.body.password = encryptPassword(req.body.password);</span>
+<span class="cstat-no" title="statement not covered" >  // const newUser = await User.create({ email, password, username, isAdmin });</span>
+<span class="cstat-no" title="statement not covered" >  const newUser = await User.create(req.body);</span>
+<span class="cstat-no" title="statement not covered" >  res.status(201).json({</span>
+<span class="cstat-no" title="statement not covered" >    status: "success",</span>
+<span class="cstat-no" title="statement not covered" >    message: "account created successfully!",</span>
+<span class="cstat-no" title="statement not covered" >  });</span>
 });
 &nbsp;
 export const login = asyncMiddleware(async (req, res, next) =&gt; {
@@ -301,7 +301,7 @@ export const checkAdmin = asyncMiddleware(async (req, res, next) =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-04-01T13:47:17.472Z
+                at 2024-04-01T16:16:35.702Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

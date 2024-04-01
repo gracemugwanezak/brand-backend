@@ -3,6 +3,7 @@
 import request from "supertest"; //server testing
 import app from "./server";
 import mongoose from "mongoose";
+import asyncMiddleware from "./src/helpers/asyncMiddleware";
 
 beforeAll(async () => {
   mongoose
@@ -148,9 +149,9 @@ describe(" shouldn't find the message with the id to delete", () => {
 describe(" user api testing", () => {
   it("should  create and register a user  and return success ", async () => {
     const aUser = {
-      username: "ineza",
-      email: "ineza@gmail.com",
-      password: "ineza",
+      username: "igezi",
+      email: "igezi@gmail.com",
+      password: "igezi",
     };
     const res = await request(app).post(`/api/users/signup`).send(aUser);
 
@@ -166,5 +167,92 @@ describe(" user api testing", () => {
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Zjk2Y2QxNjQxODc0ZjJlZGY0NmFmMyIsImlhdCI6MTcxMDg0NTE4NSwiZXhwIjoxNzEzNDM3MTg1fQ.x5mxuFrwi3nANX_HkieZvNVDbHLmHuP9k3VbAaOoCK";
 
     expect(res.status).toEqual(200);
+  });
+});
+
+describe(" skills api testing", () => {
+  it("return all skills", async () => {
+    const res = await request(app).get("/skills");
+    expect(res.status).toBe(200);
+  });
+
+  it("should create a skill", async () => {
+    const newSkill = { name: "api testing", category: "technical" };
+
+    const res = await request(app).post(`/skills`).send(newSkill);
+    expect(res.status).toBe(201);
+  });
+});
+
+describe("asyncMiddleware", () => {
+  it("should call the wrapped function with req, res, and next", async () => {
+    // Mock request, response, and next functions
+    const req = {};
+    const res = {};
+    const next = jest.fn();
+
+    // Mock the wrapped function
+    const mockFn = jest.fn().mockResolvedValue("success");
+
+    // Call the asyncMiddleware with the mock function
+    const middleware = asyncMiddleware(mockFn);
+    await middleware(req, res, next);
+
+    // Assert that the wrapped function was called with req, res, and next
+    expect(mockFn).toHaveBeenCalledWith(req, res, next);
+  });
+
+  it("should call next with error if wrapped function throws an error", async () => {
+    // Mock request, response, and next functions
+    const req = {};
+    const res = {};
+    const next = jest.fn();
+
+    // Mock the wrapped function to throw an error
+    const error = new Error("Test error");
+    const mockFn = jest.fn().mockRejectedValue(error);
+
+    // Call the asyncMiddleware with the mock function
+    const middleware = asyncMiddleware(mockFn);
+    await middleware(req, res, next);
+
+    // Assert that next was called with the error
+    expect(next).toHaveBeenCalledWith(error);
+  });
+
+  it("should call next with error if wrapped function throws a synchronous error", async () => {
+    // Mock request, response, and next functions
+    const req = {};
+    const res = {};
+    const next = jest.fn();
+
+    // Mock the wrapped function to throw a synchronous error
+    const error = new Error("Test error");
+    const mockFn = jest.fn(() => {
+      throw error;
+    });
+
+    // Call the asyncMiddleware with the mock function
+    const middleware = asyncMiddleware(mockFn);
+    await middleware(req, res, next);
+
+    // Assert that next was called with the error
+    expect(next).toHaveBeenCalledWith(error);
+  });
+});
+
+describe(" education backgrounds api", () => {
+  it("returns all educational backgrounds", async () => {
+    const res = await request(app).get("/education");
+    expect(res.json).toBe(backgrounds);
+  });
+
+  it("should create a new education background", () => {
+    const newEducation = {
+      name: "royland institute",
+      degree: "basic",
+    };
+    const res = request(app).patch(`/education`).send(newEducation);
+    expect(res.status).toBe(201);
   });
 });
